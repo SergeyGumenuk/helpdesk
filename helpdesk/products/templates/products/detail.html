@@ -6,5 +6,6 @@
     {{ product.description }}
     {{  product.price }}
 
+    <a href="{% url 'products:update' product.id %}">Update product</a>
     <a href="{% url 'products:delete' product.id %}">Delete product</a>
 {% endblock %}
