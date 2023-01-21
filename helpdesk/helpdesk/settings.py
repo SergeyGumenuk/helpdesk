@@ -29,6 +29,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'customers.apps.CustomersConfig',
+    'tickets.apps.TicketsConfig',
+    'products.apps.ProductsConfig',
+
 
 ]
 
