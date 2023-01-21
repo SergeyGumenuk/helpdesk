@@ -2,6 +2,11 @@ from django.db import models
 from django.urls import reverse
 
 
+class AvailableManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(is_available=True)
+
+
 class Product(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField()
@@ -11,6 +16,9 @@ class Product(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+    objects = models.Manager()
+    available = AvailableManager()
+
     class Meta:
         ordering = ['title']
 
@@ -18,4 +26,4 @@ class Product(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('product_detail', args=[self.slug])
+        return reverse('products:detail', args=[self.slug])
