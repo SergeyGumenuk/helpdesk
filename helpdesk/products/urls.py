@@ -8,7 +8,8 @@ app_name = 'products'
 
 urlpatterns = [
     path('catalog/', views.get_catalog, name='catalog'),
-    path('add/', views.add_product_to_catalog, name='add_product'),
+    path('add/', views.add_product_to_catalog, name='add'),
+    path('delete/<int:product_id>/', views.delete_product_from_catalog, name='delete'),
     path('<slug:slug>/', views.get_product_detail, name='detail'),
 
 

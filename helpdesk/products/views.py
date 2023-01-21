@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 
@@ -26,3 +27,8 @@ def add_product_to_catalog(request):
         form = CreateProductForm()
 
     return render(request, 'products/add_product.html', {'form': form})
+
+
+def delete_product_from_catalog(request, product_id):
+    Product.objects.get(pk=product_id).delete()
+    return redirect(reverse_lazy('products:catalog'))

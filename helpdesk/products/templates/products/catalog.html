@@ -5,4 +5,6 @@
   {% for product in products %}
     <p><a href="{{product.get_absolute_url}}">{{ product.title }}</a> {{ product.price }}</p>
   {% endfor %}
+
+  <a href="{% url 'products:add' %}">Add product</a>
 {% endblock %}
