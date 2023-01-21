@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from customers.forms import UserLoginForm
 
@@ -23,3 +23,8 @@ def user_login(request):
         form = UserLoginForm()
 
     return render(request, 'customers/login.html', {'form': form})
+
+
+def user_logout(request):
+    logout(request)
+    return redirect('customers:login')
