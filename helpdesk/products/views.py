@@ -6,7 +6,7 @@ from products.models import Product
 
 
 def get_catalog(request):
-    products = Product.available.all()
+    products = Product.objects.all()
     return render(request, 'products/catalog.html', {'products': products})
 
 

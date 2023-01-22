@@ -6,7 +6,8 @@
         {% csrf_token %}
         {{ user_form.as_p }}
         {{ profile_form.as_p }}
-        <input type="submit" value="Register">
+        <input type="submit" value="Edit">
     </form>
 </div>
+<p><a href="{% url 'customers:profile_detail' user.username %}">Go to MyProfile</a></p>
 {% endblock %}

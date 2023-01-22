@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib.auth.models import User
 
+from customers.models import Profile
+
 
 class UserLoginForm(forms.Form):
     username = forms.CharField(max_length=100)
@@ -28,3 +30,22 @@ class UserRegistrationForm(forms.ModelForm):
         if cd['password'] != cd['password2']:
             raise forms.ValidationError('Passwords don\t match')
         return cd['password2']
+
+
+class UserEditForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'email']
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        invalid_email = User.objects.exclude(pk=self.instance.id).filter(email=email)
+        if email in invalid_email:
+            raise forms.ValidationError('This email already in used')
+        return email
+
+
+class ProfileEditForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['photo']

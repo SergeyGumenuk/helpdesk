@@ -2,4 +2,5 @@
 
 {% block content %}
     <p>This is a page of: {{user.username}}</p>
+    <p><a href="{% url 'customers:profile_edit' %}">Edit profile</a></p>
 {% endblock %}
