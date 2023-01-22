@@ -1,7 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
 from customers.forms import UserLoginForm, UserRegistrationForm, UserEditForm, ProfileEditForm
@@ -74,3 +73,11 @@ def profile_edit(request):
 
     return render(request, 'customers/profile/edit.html', {'user_form': user_form,
                                                            'profile_form': profile_form})
+
+
+def profile_delete(request):
+    user = request.user
+    logout(request)
+    User.objects.filter(pk=user.id).update(is_active=False)
+    Profile.objects.filter(user=user).delete()
+    return redirect('customers:home')
