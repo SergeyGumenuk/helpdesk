@@ -2,5 +2,6 @@
 
 
 {% block content %}
-    <p>Hello, {% if user.is_authenticated %} {{user.username}} {% else %} Guest {% endif %}!</p>
+    <p>Hello, {% if user.is_authenticated %} {{ user.username }} {% else %} Guest {% endif %}!</p>
+    <p><a href="{% url 'customers:profile_detail' user.username %}">Go to MyProfile</a></p>
 {% endblock %}

@@ -1,10 +1,11 @@
 {% extends 'customers/base.html' %}
 
 {% block content %}
-<div class="register">
+<div class="profile_edit">
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ user_form.as_p }}
+        {{ profile_form.as_p }}
         <input type="submit" value="Register">
     </form>
 </div>

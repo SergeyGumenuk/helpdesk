@@ -1,8 +1,10 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from customers.forms import UserLoginForm, UserRegistrationForm
+from customers.models import Profile
 
 
 def index(request):
@@ -38,9 +40,15 @@ def user_register(request):
             new_user = form.save(commit=False)
             new_user.set_password(form.cleaned_data['password'])
             new_user.save()
+            Profile.objects.create(user=new_user)
             login(request, new_user)
             return redirect('customers:home')
     else:
         form = UserRegistrationForm()
 
     return render(request, 'customers/register.html', {'form': form})
+
+
+def profile_detail(request, username):
+    user = get_object_or_404(User, username=username)
+    return render(request, 'customers/profile/detail.html', {'user': user})
