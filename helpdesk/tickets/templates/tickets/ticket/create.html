@@ -1,0 +1,11 @@
+{% extends 'customers/base.html' %}
+
+{% block content %}
+<div class="createticket">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Create ticket">
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'customers/base.html' %}
+
+
+{% block content %}
+    <ul>
+    {% for ticket in tickets %}
+        <li><a href="{{ ticket.get_absolute_url }}"> {{ ticket }} </a></li>
+    {% endfor %}
+    </ul>
+{% endblock %}

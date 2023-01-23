@@ -28,4 +28,4 @@ class Ticket(models.Model):
         return f'Ticket № {self.pk} by {self.user.username}'
 
     def get_absolute_url(self):
-        reverse('ticket:detail', args=[self.pk])
+        return reverse('tickets:detail', args=[self.pk])
