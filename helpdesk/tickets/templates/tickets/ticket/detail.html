@@ -5,4 +5,10 @@
     <p>This is the ticket № {{ ticket.id }} by {{ ticket.user.username }}</p>
     <br>
     <p> {{ ticket.description }} </p>
+
+    <form action="{% url 'tickets:set_answered' ticket.id %}" method="post">
+        {% csrf_token %}
+        <input type="submit"value="set answered">
+    </form>
+
 {% endblock %}

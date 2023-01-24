@@ -4,7 +4,7 @@
 {% block content %}
 {% if user.is_authenticated %}
     <p>Hello,  {{ user.username }}!</p>
-    <p><a href="{% url 'customers:profile_detail' user.username %}">Go to MyProfile</a></p>
+
 {% else %}
     <p>Hello, Guest!</p>
     <p>You can <a href="{% url 'customers:login' %}">login</a> or register your profile <a href="{% url 'customers:registration' %}">here</a></p>

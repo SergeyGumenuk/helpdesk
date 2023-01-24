@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 from customers.forms import UserLoginForm, UserRegistrationForm, UserEditForm, ProfileEditForm
 from customers.models import Profile
+from tickets.models import Ticket
 
 
 def index(request):
@@ -30,7 +31,7 @@ def user_login(request):
 
 def user_logout(request):
     logout(request)
-    return redirect('customers:login')
+    return redirect('customers:home')
 
 
 def user_register(request):
@@ -51,7 +52,9 @@ def user_register(request):
 
 def profile_detail(request, username):
     user = get_object_or_404(User, username=username)
-    return render(request, 'customers/profile/detail.html', {'user': user})
+    tickets = Ticket.not_answered.filter(user=user)
+    return render(request, 'customers/profile/detail.html', {'user': user,
+                                                             'tickets': tickets})
 
 
 def profile_edit(request):

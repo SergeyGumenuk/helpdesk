@@ -2,10 +2,7 @@ from django.conf import settings
 from django.db import models
 from django.urls import reverse
 
-
-class NotAnsweredManager(models.Manager):
-    def get_queryset(self):
-        return super().get_queryset().filter(answered=False)
+from tickets.tickets_services import NotAnsweredManager
 
 
 class Ticket(models.Model):

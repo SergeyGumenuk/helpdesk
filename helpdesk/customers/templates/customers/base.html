@@ -7,6 +7,7 @@
 <body>
 {% if user.is_authenticated %}
 <a href="{% url 'customers:logout' %}">Logout</a>
+<a href="{% url 'customers:profile_detail' user.username %}">Go to MyProfile</a>
 {% endif %}
 
 {% block content %}
