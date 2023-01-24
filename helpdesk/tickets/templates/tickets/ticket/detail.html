@@ -12,7 +12,7 @@
         <p> {{ answer.user }}|{{ answer.created }} - {{ answer.content }} </p>
     {% endfor %}
 
-
+    <hr>
     <form action="{% url 'tickets:add_answer' ticket.id %}" method="post">
         {% csrf_token %}
         {{answer_form.as_p}}
