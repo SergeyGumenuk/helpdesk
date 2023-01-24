@@ -22,7 +22,22 @@ class Ticket(models.Model):
         ordering = ['-created']
 
     def __str__(self):
-        return f'Ticket № {self.pk} by {self.user.username}'
+        return f'Ticket № {self.pk} from {self.user.username}'
 
     def get_absolute_url(self):
         return reverse('tickets:detail', args=[self.pk])
+
+
+class Answer(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.SET_DEFAULT,
+                             default='Deleted user',
+                             related_name='answers')
+    ticket = models.ForeignKey(Ticket,
+                               on_delete=models.CASCADE,
+                               related_name='answers')
+    content = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Answer by {self.user} at {self.ticket}'

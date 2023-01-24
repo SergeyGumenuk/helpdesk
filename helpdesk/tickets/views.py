@@ -1,9 +1,10 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
 from django.views.decorators.http import require_POST
 
-from tickets.forms import CreateTicketForm
-from tickets.models import Ticket
+from tickets.forms import CreateTicketForm, AddAnswerForm
+from tickets.models import Ticket, Answer
 
 
 def get_not_answered_tickets(request):
@@ -13,7 +14,11 @@ def get_not_answered_tickets(request):
 
 def ticket_detail(request, ticket_id):
     ticket = get_object_or_404(Ticket, pk=ticket_id)
-    return render(request, 'tickets/ticket/detail.html', {'ticket': ticket})
+    answer_form = AddAnswerForm()
+    answers = ticket.answers.all()
+    return render(request, 'tickets/ticket/detail.html', {'ticket': ticket,
+                                                          'answer_form': answer_form,
+                                                          'answers': answers})
 
 
 def ticket_create(request):
@@ -34,3 +39,12 @@ def ticket_create(request):
 def ticket_set_answered(request, ticket_id):
     Ticket.not_answered.filter(pk=ticket_id).update(answered=True)
     return redirect('tickets:not_answered')
+
+
+@require_POST
+def add_answer(request, ticket_id):
+    ticket = get_object_or_404(Ticket, pk=ticket_id)
+    Answer.objects.create(user=request.user,
+                          ticket=ticket,
+                          content=request.POST['content'])
+    return redirect('tickets:detail', ticket_id)

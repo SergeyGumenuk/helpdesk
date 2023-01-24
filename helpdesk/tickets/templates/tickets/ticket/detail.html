@@ -6,9 +6,23 @@
     <br>
     <p> {{ ticket.description }} </p>
 
+    <hr>
+    <p>Answers</p>
+    {% for answer in answers %}
+        <p> {{ answer.user }}|{{ answer.created }} - {{ answer.content }} </p>
+    {% endfor %}
+
+
+    <form action="{% url 'tickets:add_answer' ticket.id %}" method="post">
+        {% csrf_token %}
+        {{answer_form.as_p}}
+        <input type="submit" value="add answer">
+    </form>
+
+
     <form action="{% url 'tickets:set_answered' ticket.id %}" method="post">
         {% csrf_token %}
-        <input type="submit"value="set answered">
+        <input type="submit" value="set answered">
     </form>
 
 {% endblock %}
