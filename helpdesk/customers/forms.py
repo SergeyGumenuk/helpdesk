@@ -5,19 +5,33 @@ from customers.models import Profile
 
 
 class UserLoginForm(forms.Form):
-    username = forms.CharField(max_length=100)
-    password = forms.CharField(widget=forms.PasswordInput)
+    username = forms.CharField(max_length=100, label='',
+                               widget=forms.TextInput(attrs={'placeholder': 'Username'}))
+
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}),
+                               label='')
 
 
 class UserRegistrationForm(forms.ModelForm):
-    password = forms.CharField(label='Password',
-                               widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Repeat password',
-                                widget=forms.PasswordInput)
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}),
+                               label='')
+    password2 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Repeat password'}),
+                                label='')
 
     class Meta:
         model = User
         fields = ['username', 'email']
+        labels = {
+            'username': '',
+            'email': '',
+        }
+        widgets = {
+            'username': forms.TextInput(attrs={'placeholder': 'Username'}),
+            'email': forms.TextInput(attrs={'placeholder': 'Email'}),
+        }
+        help_texts = {
+            'username': None,
+        }
 
     def clean_email(self):
         email = self.cleaned_data['email']

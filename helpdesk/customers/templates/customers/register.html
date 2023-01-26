@@ -1,7 +1,7 @@
 {% extends 'customers/base.html' %}
 
 {% block content %}
-<div class="register">
+<div class="modal">
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
