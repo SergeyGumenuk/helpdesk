@@ -5,8 +5,17 @@
     <p><a href="{% url 'customers:profile_edit' %}">Edit profile</a></p>
     <p><a href="{% url 'customers:profile_delete' %}">Delete profile</a></p>
     <hr>
-    <p>My tickets <a href="{% url 'tickets:ticket_create' %}">Add ticket</a></p>
+    <p>My appointment
+    {% if appointment %}
+        <a href="{% url 'appointment:delete' appointment.id %}">Delete appointment</a>
+        <p>{{appointment}}</p>
+    {% else %}
+        <a href="{% url 'appointment:add' %}">Add appointment</a>
+    {% endif %}
+    </p>
 
+    <hr>
+    <p>My tickets <a href="{% url 'tickets:ticket_create' %}">Add ticket</a></p>
     {% for ticket in tickets %}
         <p><a href="{{ ticket.get_absolute_url }}">{{ ticket }}</a></p>
     {% endfor %}

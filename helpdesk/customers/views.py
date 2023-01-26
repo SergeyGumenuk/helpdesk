@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
 
+from appointment.models import Appointment
 from customers.forms import UserLoginForm, UserRegistrationForm, UserEditForm, ProfileEditForm
 from customers.models import Profile
 from tickets.models import Ticket
@@ -53,8 +54,13 @@ def user_register(request):
 def profile_detail(request, username):
     user = get_object_or_404(User, username=username)
     tickets = Ticket.not_answered.filter(user=user)
+    try:
+        appointment = get_object_or_404(Appointment, user=user)
+    except:
+        appointment = None
     return render(request, 'customers/profile/detail.html', {'user': user,
-                                                             'tickets': tickets})
+                                                             'tickets': tickets,
+                                                             'appointment': appointment})
 
 
 def profile_edit(request):
