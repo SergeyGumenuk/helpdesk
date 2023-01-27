@@ -2,9 +2,11 @@
 
 
 {% block content %}
+<div class="modal">
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Enroll">
 </form>
+</div>
 {% endblock %}

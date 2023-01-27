@@ -6,7 +6,8 @@ from customers.models import Profile
 
 class UserLoginForm(forms.Form):
     username = forms.CharField(max_length=100, label='',
-                               widget=forms.TextInput(attrs={'placeholder': 'Username'}))
+                               widget=forms.TextInput(attrs={'placeholder': 'Username',
+                                                             'autocomplete': None}))
 
     password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}),
                                label='')
@@ -26,8 +27,10 @@ class UserRegistrationForm(forms.ModelForm):
             'email': '',
         }
         widgets = {
-            'username': forms.TextInput(attrs={'placeholder': 'Username'}),
-            'email': forms.TextInput(attrs={'placeholder': 'Email'}),
+            'username': forms.TextInput(attrs={'placeholder': 'Username',
+                                               'autocomplete': None}),
+            'email': forms.TextInput(attrs={'placeholder': 'Email',
+                                            'autocomplete': None}),
         }
         help_texts = {
             'username': None,
@@ -50,6 +53,17 @@ class UserEditForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'email']
+        labels = {
+            'username': '',
+            'email': '',
+        }
+        widgets = {
+            'username': forms.TextInput(attrs={'placeholder': 'Username'}),
+            'email': forms.TextInput(attrs={'placeholder': 'Email'}),
+        }
+        help_texts = {
+            'username': None,
+        }
 
     def clean_email(self):
         email = self.cleaned_data['email']
@@ -63,3 +77,7 @@ class ProfileEditForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['photo']
+
+        labels = {
+            'photo': 'Upload photo'
+        }
